@@ -2,20 +2,14 @@ package io.headhuntr.presentation;
 
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
-import lombok.Getter;
 
 @Controller("candidates")
 public class CandidateAPI {
 
     @Get
     public CandidateSearchResults demo() {
-        return new CandidateSearchResults();
+        return new CandidateSearchResults(123L, "Test");
     }
 }
 
-@Getter
-class CandidateSearchResults {
-
-    Long count = 0L;
-    String message = "Test";
-}
+record CandidateSearchResults(Long count, String message) {}
