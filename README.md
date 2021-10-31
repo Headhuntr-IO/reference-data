@@ -1,3 +1,7 @@
+# Reference Data Service - headhuntr.io (v2)
+[![Build and Unit Test](https://github.com/Headhuntr-IO/reference-data/actions/workflows/gradle.yml/badge.svg)](https://github.com/Headhuntr-IO/reference-data/actions/workflows/gradle.yml)
+[![Docker and Integration Test](https://github.com/Headhuntr-IO/reference-data/actions/workflows/graalvm.yml/badge.svg?branch=master)](https://github.com/Headhuntr-IO/reference-data/actions/workflows/graalvm.yml)
+
 ## Micronaut 3.1.3 Documentation
 
 - [User Guide](https://docs.micronaut.io/3.1.3/guide/index.html)
