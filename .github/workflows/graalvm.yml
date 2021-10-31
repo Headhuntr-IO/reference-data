@@ -1,5 +1,10 @@
-name: GraalVM CE CI
-on: [push, pull_request]
+name: Docker and Integration Test
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,11 +31,13 @@ jobs:
           registry: ${{ secrets.DOCKER_REGISTRY_URL }}
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: Build And Push Docker Image
+      - name: Build Docker Image
+        run: ./gradlew check dockerBuildNative --no-daemon
+      - name: Push Docker Image
         env:
           DOCKER_REPOSITORY_PATH: ${{ secrets.DOCKER_REPOSITORY_PATH }}
           DOCKER_REGISTRY_URL: ${{ secrets.DOCKER_REGISTRY_URL }}
           TESTCONTAINERS_RYUK_DISABLED: true
         run: |
-          export DOCKER_IMAGE=`echo "${DOCKER_REGISTRY_URL}/${DOCKER_REPOSITORY_PATH}/reference-data" | sed -e 's#//#/#' -e 's#^/##'`
-          ./gradlew check dockerPushNative --no-daemon
+          docker tag reference-data:latest $DOCKER_REGISTRY_URL/$DOCKER_REPOSITORY_PATH:latest
+          docker push $DOCKER_REGISTRY_URL/$DOCKER_REPOSITORY_PATH:latest
