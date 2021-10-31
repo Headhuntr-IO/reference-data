@@ -15,9 +15,7 @@ public class CandidateAPI {
     private final CandidateSearchEngine searchEngine;
 
     @Get
-    public CandidateSearchResults demo() {
-        return new CandidateSearchResults(searchEngine.search(SearchParameter.empty()), "Test");
+    public Page<Candidate> demo() {
+        return searchEngine.search(SearchParameter.empty());
     }
 }
-
-record CandidateSearchResults(Page<Candidate> candidates, String message) {}
